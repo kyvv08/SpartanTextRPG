@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SpartanTextRPG
@@ -27,7 +28,7 @@ namespace SpartanTextRPG
         }
 
         // 예시 메서드
-        void WrongInput()
+        public void WrongInput()
         {
             Console.WriteLine("잘못된 입력입니다.(아무키나 눌러 다시 입력)\n");
             Console.ReadKey();
@@ -36,10 +37,20 @@ namespace SpartanTextRPG
         {
 
             string name, className;
-            if (File.Exists("playerData"))
+            if (File.Exists("items.json"))
+            {
+                ItemManager.Instance.LoadItems();
+            }
+            else
+            {
+                Console.WriteLine("Fatal Error!!!!!!!!!!!!");
+                Console.ReadKey();
+            }
+            if (File.Exists("playerData.json"))
             {
                 //json 파일 읽어오기
-                PlayerManager.Instance.SetMainPlayer(new Player());
+                string json = File.ReadAllText(TextMessages.playerDataFath);
+                PlayerManager.Instance.SetMainPlayer(JsonSerializer.Deserialize<Player>(json));
             }
             else
             {
@@ -116,12 +127,14 @@ namespace SpartanTextRPG
                         ViewInventory();
                         break;
                     case 3:
+                        EnterShop();
                         break;
                     case 4:
                         break;
                     case 5:
                         break;
                     case 6:
+                        SaveData();
                         break;
                     default:
                         WrongInput();
@@ -133,15 +146,16 @@ namespace SpartanTextRPG
         {
             Console.Clear();
             Player p = PlayerManager.Instance.MainPlayer;
+            Console.WriteLine(TextMessages.viewStatusMent);
             p.ViewInfo();
             Console.WriteLine($"0. {TextMessages.viewExitMent}");
             Console.WriteLine(TextMessages.selectActionMent);
             int startLine = Console.CursorTop;
             while (true)
             {
-                Console.SetCursorPosition(0, startLine + 1);
+                Console.SetCursorPosition(0, startLine);
                 Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, startLine + 1);
+                Console.SetCursorPosition(0, startLine);
                 if (!int.TryParse(Console.ReadLine(), out int act))
                 {
                     continue;
@@ -150,58 +164,150 @@ namespace SpartanTextRPG
                 return;
             }
         }
-        void ViewInventoty()
+        void PrintInventory(bool isManageMode)
         {
             Player p = PlayerManager.Instance.MainPlayer;
             Console.Clear();
-            Console.WriteLine($"\n\n{TextMessages.viewItemListMent}");
-            p.ViewInventory();
-            Console.WriteLine($"1. {TextMessages.viewEquipManageMent}");
-            Console.WriteLine($"0. {TextMessages.viewExitMent}");
+            Console.WriteLine($"{TextMessages.viewInvenMent}\n\n{TextMessages.viewItemListMent}\n");
+            p.ViewInventory(isManageMode);
+            if (!isManageMode)
+            {
+                Console.WriteLine($"1. {TextMessages.viewEquipManageMent}");
+            }
+            Console.WriteLine($"0. {TextMessages.viewExitMent}\n");
             Console.WriteLine(TextMessages.selectActionMent);
-            int startLine = Console.CursorTop;
+        }
+        void ViewInventory()
+        {
             while (true)
             {
-                Console.SetCursorPosition(0, startLine + 1);
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, startLine + 1);
-                if (!int.TryParse(Console.ReadLine(), out int act))
+                PrintInventory(false);
+                int startLine = Console.CursorTop;
+                while (true)
                 {
-                    continue;
+                    Console.SetCursorPosition(0, startLine);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, startLine);
+                    if (!int.TryParse(Console.ReadLine(), out int act))
+                    {
+                        WrongInput();
+                        continue;
+                    }
+                    if (act == 1)
+                    {
+                        ManageItems();
+                        break;
+                    }
+                    if (act != 0)
+                    {
+                        WrongInput();
+                        continue;
+                    }
+                    return;
                 }
-                if (act == 1)
-                {
-                    ManageItems();
-                }
-                if (act != 0) { continue; }
-                return;
             }
         }
 
         void ManageItems()
         {
-            Player p = PlayerManager.Instance.MainPlayer;
-            Console.Clear();
-            Console.WriteLine($"\n\n{TextMessages.viewItemListMent}");
-            p.ViewInventory(true);
-            Console.WriteLine($"0. {TextMessages.viewExitMent}");
-            Console.WriteLine(TextMessages.selectActionMent);
-            int startLine = Console.CursorTop;
             while (true)
             {
-                Console.SetCursorPosition(0, startLine + 1);
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, startLine + 1);
-                if (!int.TryParse(Console.ReadLine(), out int act))
+                Player p = PlayerManager.Instance.MainPlayer;
+                PrintInventory(true);
+                int startLine = Console.CursorTop;
+                while (true)
                 {
-                    continue;
+                    Console.SetCursorPosition(0, startLine);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, startLine);
+                    if (!int.TryParse(Console.ReadLine(), out int act))
+                    {
+                        WrongInput();
+                        continue;
+                    }
+                    if (act != 0)
+                    {
+                        p.ManageEquipment(act);
+                        break;
+                    }
+                    return;
                 }
-                if (act != 0) {
-                    p.ManageEquipment(act);
-                    continue;
-                }
-                return;
             }
+        }
+
+        void PrintShop(bool isBuyMode)
+        {
+            Console.Clear();
+
+            Console.WriteLine($"{TextMessages.viewShopMent}");
+            Console.WriteLine($"\n{TextMessages.viewCurrentCashMent}\n" + PlayerManager.Instance.MainPlayer.gold + " G\n");
+            ItemManager.Instance.ShowItems(isBuyMode);
+
+            if (!isBuyMode)
+            {
+                Console.WriteLine($"1. {TextMessages.viewBuyItemMent}");
+            }
+            Console.WriteLine($"0. {TextMessages.viewExitMent}\n");
+            Console.WriteLine(TextMessages.selectActionMent);
+        }
+
+        void EnterShop()
+        {
+            while (true)
+            {
+                PrintShop(false);
+                int startLine = Console.CursorTop;
+                while (true)
+                {
+                    Console.SetCursorPosition(0, startLine);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, startLine);
+                    if (!int.TryParse(Console.ReadLine(), out int act))
+                    {
+                        WrongInput();
+                        continue;
+                    }
+                    if (act == 1)
+                    {
+                        BuyItems();
+                        break;
+                    }
+                    if (act != 0) { WrongInput(); continue; }
+                    return;
+                }
+            }
+        }
+        void BuyItems()
+        {
+            while (true)
+            {
+                PrintShop(true);
+                int startLine = Console.CursorTop;
+                while (true)
+                {
+                    Console.SetCursorPosition(0, startLine);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, startLine);
+                    if (!int.TryParse(Console.ReadLine(), out int act))
+                    {
+                        WrongInput();
+                        continue;
+                    }
+                    if (act != 0)
+                    {
+                        ItemManager.Instance.BuyItem(act);
+                        break;
+                    }
+                    return;
+                }
+            }
+        }
+
+        void SaveData()
+        {
+            string jsonString = JsonSerializer.Serialize(PlayerManager.Instance.MainPlayer, new JsonSerializerOptions { WriteIndented = true });
+
+            File.WriteAllText("playerData.json", jsonString);
         }
     }
 }

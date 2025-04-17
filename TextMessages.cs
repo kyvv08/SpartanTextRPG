@@ -54,5 +54,6 @@ namespace SpartanTextRPG
         public const string viewGold = "Gold";
 
         public const string itemListFileFath = "items.json";
+        public const string playerDataFath = "playerData.json";
     }
 }

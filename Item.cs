@@ -13,7 +13,7 @@ namespace SpartanTextRPG
         public int def { get; init; }
         public int health { get; init; }
     }
-    internal class Item : IDescribable
+    internal class Item
     {
         [JsonInclude]
         public int id { get;private set; }
@@ -40,7 +40,7 @@ namespace SpartanTextRPG
             this.price = price;
             this.isSold = false;
         }
-        public void ViewInfo()
+        public void ViewInfo(bool isShop)
         {
             string stat = string.Empty;
             string sellPrice = string.Empty;
@@ -64,7 +64,12 @@ namespace SpartanTextRPG
             {
                 sellPrice = $"{price} G";
             }
-            Console.WriteLine($"{PadingKorean(name,18)} | {stat,-10} | {PadingKorean(description, 50)} | {sellPrice,-5}");
+            string itemInfo = $"{PadingKorean(name, 18)} | {stat,-10} | {PadingKorean(description, 50)}";
+            if (isShop)
+            {
+                itemInfo += $" | { sellPrice,-5}";
+            }
+            Console.WriteLine(itemInfo);
         }
         string PadingKorean(string input,int width)
         {
@@ -76,6 +81,11 @@ namespace SpartanTextRPG
             if (pad > 0)
                 return input + new string(' ', pad);
             return input;
+        }
+        public void ItemSold()
+        {
+            isSold = !isSold;
+            PlayerManager.Instance.MainPlayer.AddItemToInvenTory(id,price);
         }
     }
 }

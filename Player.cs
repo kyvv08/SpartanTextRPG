@@ -21,15 +21,21 @@ namespace SpartanTextRPG
         [JsonInclude]
         public int attackStat { get; private set; } = 10;
         [JsonInclude]
+        public int additionalAttackStat { get; private set; } = 0;
+        [JsonInclude]
         public int defenceStat { get; private set; } = 5;
+        [JsonInclude]
+        public int additionalDefenceStat { get; private set; } = 0;
         [JsonInclude]
         public int currentHp { get; private set; } = 100;
         [JsonInclude]
         public int maxHp { get; private set; } = 100;
         [JsonInclude]
+        public int additionalMaxHp { get; private set; } = 0;
+        [JsonInclude]
         public int gold { get; private set; } = 1500;
         [JsonInclude]
-        public List<int> itemId { get; } = new();
+        public List<int> itemId { get; private set; } = new();
         [JsonInclude]
         public List<int> equipedItem { get; private set; } = new();
         public Player()
@@ -42,33 +48,50 @@ namespace SpartanTextRPG
 
         public void ViewInfo()
         {
+            string atk = $"{TextMessages.viewAttack} : {attackStat+additionalAttackStat}";
+            string def = $"{TextMessages.viewDefence} : {defenceStat+additionalDefenceStat}";
+            string hp = $"{TextMessages.viewHealth} : {currentHp}/{maxHp+ additionalMaxHp}";
+                if (additionalAttackStat > 0)
+                {
+                    atk += $" (+{additionalAttackStat})";
+                }
+                if(additionalDefenceStat > 0)
+                {
+                    def += $" (+{additionalDefenceStat})";
+                }
+                if(additionalMaxHp > 0)
+                {
+                    hp += $" (+{additionalMaxHp})";
+                }
             Console.WriteLine(
-                $"\n\nLv. {level,2:00}" + "\n" +
+                $"\nLv. {level,2:00}" + "\n" +
                 name + $" ( {Class} )\n"+
-                TextMessages.viewAttack + " : " + attackStat + "\n" +
-                TextMessages.viewDefence + " : " + defenceStat + "\n" +
-                TextMessages.viewHealth + " : " + currentHp + "/"+ maxHp + "\n" +
+                atk + "\n" +
+                def + "\n" +
+                hp + "\n" +
                 TextMessages.viewGold + " : " + gold + " G\n");
         }
-        public void AddItemToInventory(int id)
-        {
-            itemId.Add(id);
-        }
-        public void ViewInventory(bool isManage = false)
+
+        public void ViewInventory(bool isManage)
         {
             if (!isManage)
             {
                 foreach (int id in itemId)
                 {
                     Item item = ItemManager.Instance.GetItembyId(id);
-                    if (item != null)
+                    if (item == null)
+                    {
+                        Console.WriteLine("Fatal Error!!!!");
+                        Console.ReadKey();
+                    }
+                    else
                     {
                         Console.Write("-");
                         if (equipedItem.Contains(id))
                         {
                             Console.Write("[E]");
                         }
-                        item.ViewInfo();
+                        item.ViewInfo(false);
                     }
                 }
             }
@@ -78,26 +101,36 @@ namespace SpartanTextRPG
                 foreach (int id in itemId)
                 {
                     Item item = ItemManager.Instance.GetItembyId(id);
-                    if (item != null)
+                    if (item == null)
                     {
-                        Console.Write("- {0}",i++);
+                        Console.WriteLine("Fatal Error!!!!");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.Write("- {0} ", i++);
                         if (equipedItem.Contains(id))
                         {
                             Console.Write("[E]");
                         }
-                        item.ViewInfo();
+                        item.ViewInfo(false);
                     }
                 }
             }
+            Console.WriteLine();
         }
         public void ManageEquipment(int index)
         {
-            if (index > itemId.Count()) return;
+            if (index > itemId.Count()) {
+                GameManager.Instance.WrongInput();
+                return;
+            }
             --index;
             int equipItemIndex = equipedItem.IndexOf(itemId[index]);
             if (equipItemIndex != -1)
             {
-                equipedItem.Remove(equipItemIndex);
+                RemoveItemStat(equipedItem[equipItemIndex]);
+                equipedItem.RemoveAt(equipItemIndex);
             }
             else
             {
@@ -106,6 +139,7 @@ namespace SpartanTextRPG
                 {
                     Console.WriteLine("Fatal Error!!!!");
                     Console.ReadKey();
+                    return;
                 }
                 foreach (int id in equipedItem)
                 {
@@ -115,31 +149,49 @@ namespace SpartanTextRPG
                         Console.WriteLine("Fatal Error!!!!");
                         Console.ReadKey();
                     }
-                    if(temp.type == item.type)
+                    else if(temp.type == item.type)
                     {
+                        RemoveItemStat(id);
                         equipedItem.Remove(id);
                         break;
                     }
                 }
                 equipedItem.Add(itemId[index]);
+                AddItemStat(itemId[index]);
             }
-            UpdateStatus();
             return;
         }
-        void UpdateStatus()
+        void AddItemStat(int index)
         {
-            foreach(int id in equipedItem)
+            Item item = ItemManager.Instance.GetItembyId(index);
+            if (item == null)
             {
-                Item item = ItemManager.Instance.GetItembyId(id);
-                if (item == null)
-                {
-                    Console.WriteLine("Fatal Error!!!!");
-                    Console.ReadKey();
-                }
-                attackStat += item.itemStatus.atk;
-                defenceStat += item.itemStatus.def;
-                maxHp += item.itemStatus.health;
+                Console.WriteLine("Fatal Error!!!!");
+                Console.ReadKey();
             }
+            additionalAttackStat += item.itemStatus.atk;
+            additionalDefenceStat += item.itemStatus.def;
+            additionalMaxHp += item.itemStatus.health;
+        }
+        void RemoveItemStat(int index)
+        {
+            Item item = ItemManager.Instance.GetItembyId(index);
+            if (item == null)
+            {
+                Console.WriteLine("Fatal Error!!!!");
+                Console.ReadKey();
+            }
+            additionalAttackStat -= item.itemStatus.atk;
+            additionalDefenceStat -= item.itemStatus.def;
+            additionalMaxHp -= item.itemStatus.health;
+            //additionalAttackStat = Math.Max(additionalAttackStat - item.itemStatus.atk,0);
+            //additionalDefenceStat = Math.Max(additionalDefenceStat - item.itemStatus.def, 0);
+            //additionalMaxHp = Math.Max(additionalMaxHp - item.itemStatus.health, 0);
+        }
+        public void AddItemToInvenTory(int id,int price)
+        {
+            itemId.Add(id);
+            gold -= price;
         }
     }
 }
