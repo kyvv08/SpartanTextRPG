@@ -16,7 +16,7 @@
     "id": 1,
     "type": 2,
     "name": "\uBB34\uC1E0 \uAC11\uC637",
-    "description": "무쇠로 만들어져 튼튼한 갑옷입니다.",
+    "description": "\uBB34\uC1E0\uB85C \uB9CC\uB4E4\uC5B4\uC838 \uD2BC\uD2BC\uD55C \uAC11\uC637\uC785\uB2C8\uB2E4.",
     "itemStatus": {
       "atk": 0,
       "def": 9,
@@ -28,79 +28,79 @@
   {
     "id": 3,
     "type": 2,
-    "name": "스파르타의 갑옷",
-    "description": "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.",
+    "name": "\uC2A4\uD30C\uB974\uD0C0\uC758 \uAC11\uC637",
+    "description": "\uC2A4\uD30C\uB974\uD0C0\uC758 \uC804\uC0AC\uB4E4\uC774 \uC0AC\uC6A9\uD588\uB2E4\uB294 \uC804\uC124\uC758 \uAC11\uC637\uC785\uB2C8\uB2E4.",
     "itemStatus": {
       "atk": 0,
       "def": 15,
       "health": 0
     },
-    "price": 3500,  
-    "isSold": false
+    "price": 3500,
+    "isSold": true
   },
   {
     "id": 4,
     "type": 1,
-    "name": "낡은 검",
-    "description": "쉽게 볼 수 있는 낡은 검 입니다.",
+    "name": "\uB0A1\uC740 \uAC80",
+    "description": "\uC27D\uAC8C \uBCFC \uC218 \uC788\uB294 \uB0A1\uC740 \uAC80 \uC785\uB2C8\uB2E4.",
     "itemStatus": {
       "atk": 2,
       "def": 0,
       "health": 0
     },
-    "price": 600,  
+    "price": 600,
     "isSold": false
   },
   {
     "id": 5,
     "type": 1,
-    "name": "청동 도끼",
-    "description": "어디선가 사용됐던거 같은 도끼입니다.",
+    "name": "\uCCAD\uB3D9 \uB3C4\uB07C",
+    "description": "\uC5B4\uB514\uC120\uAC00 \uC0AC\uC6A9\uB410\uB358\uAC70 \uAC19\uC740 \uB3C4\uB07C\uC785\uB2C8\uB2E4.",
     "itemStatus": {
       "atk": 5,
       "def": 0,
       "health": 0
     },
-    "price": 1500,  
+    "price": 1500,
     "isSold": false
   },
   {
     "id": 6,
     "type": 1,
-    "name": "스파르타의 창",
-    "description": "스파르타의 전사들이 사용했다는 전설의 창입니다.",
+    "name": "\uC2A4\uD30C\uB974\uD0C0\uC758 \uCC3D",
+    "description": "\uC2A4\uD30C\uB974\uD0C0\uC758 \uC804\uC0AC\uB4E4\uC774 \uC0AC\uC6A9\uD588\uB2E4\uB294 \uC804\uC124\uC758 \uCC3D\uC785\uB2C8\uB2E4.",
     "itemStatus": {
       "atk": 7,
       "def": 0,
       "health": 0
     },
-    "price": 2700,  
+    "price": 2700,
     "isSold": false
   },
   {
     "id": 7,
     "type": 1,
-    "name": "징키스칸의 활",
-    "description": "징키스칸이 사용했다고 전해지는 활입니다.",
+    "name": "\uC9D5\uD0A4\uC2A4\uCE78\uC758 \uD65C",
+    "description": "\uC9D5\uD0A4\uC2A4\uCE78\uC774 \uC0AC\uC6A9\uD588\uB2E4\uACE0 \uC804\uD574\uC9C0\uB294 \uD65C\uC785\uB2C8\uB2E4.",
     "itemStatus": {
       "atk": 10,
       "def": 0,
       "health": 0
     },
-    "price": 5000,  
-    "isSold": false
+    "price": 5000,
+    "isSold": true
   },
   {
     "id": 8,
     "type": 2,
-    "name": "아킬레우스의 흉갑",
-    "description": "아킬레우스가 트로이 전쟁에서 착용했다고 전해지는 흉갑입니다.",
+    "name": "\uC544\uD0AC\uB808\uC6B0\uC2A4\uC758 \uD749\uAC11",
+    "description": "\uC544\uD0AC\uB808\uC6B0\uC2A4\uAC00 \uD2B8\uB85C\uC774 \uC804\uC7C1\uC5D0\uC11C \uCC29\uC6A9\uD588\uB2E4\uACE0 \uC804\uD574\uC9C0\uB294 \uD749\uAC11\uC785\uB2C8\uB2E4.",
     "itemStatus": {
       "atk": 0,
       "def": 0,
       "health": 80
     },
-    "price": 4000,  
+    "price": 4000,
     "isSold": false
   }
 ]

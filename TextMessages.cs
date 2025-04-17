@@ -45,6 +45,10 @@ namespace SpartanTextRPG
         public const string viewNormalDungeonMent = "일반 던전";
         public const string viewHardDungeonMent = "어려운 던전";
 
+        public const string dungeonFailed = "던전 실패\n강한 난이도로 인하여 던전 클리어에 실패하였습니다.\n";
+        public const string dungeonResult = "[탐험 결과]";
+        public const string dungeonSuccess = "던전 클리어\n축하합니다!!";
+
         //----------------스탯 표기---------------------
         public const string viewLevel = "Lv.";
         public const string viewAttack = "공격력";

@@ -204,6 +204,7 @@ namespace SpartanTextRPG
         }
         public void EarnGold(int price) { gold += price; }
         public void Heal() { currentHp = maxHp + additionalMaxHp; }//Math.Min(currentHp + hp, maxHp + additionalMaxHp); }
+        public void Damaged(int dmg) { currentHp = Math.Max(currentHp - dmg,0); }
         public void GainExp(int exp)
         {
             curEXP += exp;
@@ -216,5 +217,8 @@ namespace SpartanTextRPG
                 defenceStat += 1;
             }
         }
+        public float GetAttackStat() { return (attackStat + additionalAttackStat); }
+
+        public int GetDefenceStat() { return defenceStat + additionalDefenceStat; }
     }
 }

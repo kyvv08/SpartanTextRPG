@@ -1,17 +1,22 @@
 {
-  "name": "12",
+  "name": "Chad",
   "Class": "\uAD81\uC218",
-  "level": 1,
-  "attackStat": 10,
+  "level": 4,
+  "attackStat": 11.5,
   "additionalAttackStat": 0,
-  "defenceStat": 5,
-  "additionalDefenceStat": 0,
+  "defenceStat": 8,
+  "additionalDefenceStat": 15,
   "currentHp": 100,
   "maxHp": 100,
   "additionalMaxHp": 0,
-  "curEXP": 0,
-  "maxEXP": 1,
-  "gold": 1500,
-  "itemId": [],
-  "equipedItem": []
+  "curEXP": 2,
+  "maxEXP": 4,
+  "gold": 7287,
+  "itemId": [
+    3,
+    7
+  ],
+  "equipedItem": [
+    3
+  ]
 }

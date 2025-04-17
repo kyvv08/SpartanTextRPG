@@ -307,15 +307,118 @@ namespace SpartanTextRPG
 
         void EnterDungeon()
         {
-            PlayerManager.Instance.MainPlayer.GainExp(1);
-            return;
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine(TextMessages.viewDungeonMent);
-                
+                Console.WriteLine($"\n1. {Item.PadingKorean(TextMessages.viewEasyDungeonMent,14)} | 방어력 5 이상 권장");
+                Console.WriteLine($"2. {Item.PadingKorean(TextMessages.viewNormalDungeonMent, 14)} | 방어력 7 이상 권장");
+                Console.WriteLine($"3. {Item.PadingKorean(TextMessages.viewHardDungeonMent, 14)} | 방어력 11 이상 권장");
+                Console.WriteLine($"0. {TextMessages.viewExitMent}\n");
+                Console.WriteLine(TextMessages.selectActionMent);
+                int startLine = Console.CursorTop;
+                while (true)
+                {
+                    Console.SetCursorPosition(0, startLine);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, startLine);
+                    if (!int.TryParse(Console.ReadLine(), out int act))
+                    {
+                        continue;
+                    }
+                    switch (act)
+                    {
+                        case 0:
+                            return;
+                        case 1:
+                            ChallengeDungeon(1);
+                            break;
+                        case 2:
+                            ChallengeDungeon(2);
+                            break;
+                        case 3:
+                            ChallengeDungeon(3);
+                            break;
+                        default:
+                            WrongInput();
+                            break;
+                    }
+                    break;
+                }
             }
         }
+        void ChallengeDungeon(int difficulty)
+        {
+            Console.Clear();
+            Random random = new Random();
+            Player p = PlayerManager.Instance.MainPlayer;
+            int def;
+            int reward;
+            bool isFailed = false;
+            string dif;
+
+            switch (difficulty)
+            {
+                case 1:     //이지
+                    def = 5;
+                    reward = 1000;
+                    dif = TextMessages.viewEasyDungeonMent;
+                    break;
+                case 2:     //일반
+                    def = 7;
+                    reward = 1700;
+                    dif = TextMessages.viewNormalDungeonMent;
+                    break;
+                case 3:     //어려움
+                    def = 11;
+                    reward = 2500;
+                    dif = TextMessages.viewHardDungeonMent;
+                    break;
+                default:
+                    return;
+            }
+            if (p.GetDefenceStat() < def)
+            {
+                int chance = random.Next(0, 100);
+                if (chance < 40)
+                {
+                    Console.WriteLine(TextMessages.dungeonFailed);
+                    Console.WriteLine(TextMessages.dungeonResult);
+                    Console.WriteLine($"{TextMessages.viewHealth} {p.currentHp} -> {p.currentHp / 2}");
+                    Console.WriteLine($"{TextMessages.viewGold} {p.gold} G -> {p.gold}");
+                    isFailed = true;
+                }
+            }
+            if (!isFailed)
+            {
+                int reduceHp = random.Next(20, 36) - (p.GetDefenceStat() - def);
+                int bonus = random.Next((int)p.GetAttackStat(), (int)(p.GetAttackStat() * 2) + 1);
+                reward += (reward * bonus / 100);
+                Console.WriteLine(TextMessages.dungeonSuccess);
+                Console.WriteLine(dif + "을 클리어 하였습니다.\n");
+                Console.WriteLine(TextMessages.dungeonResult);
+                Console.WriteLine($"{TextMessages.viewHealth} {p.currentHp} -> {p.currentHp - reduceHp}");
+                Console.WriteLine($"{TextMessages.viewGold} {p.gold} G -> {p.gold + reward}\n");
+                p.Damaged(reduceHp);
+                p.EarnGold(reward);
+                p.GainExp(1);
+            }
+            Console.WriteLine($"0. {TextMessages.viewExitMent}\n");
+            Console.WriteLine(TextMessages.selectActionMent);
+            int startLine = Console.CursorTop;
+            while (true)
+            {
+                Console.SetCursorPosition(0, startLine);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, startLine);
+                if (!int.TryParse(Console.ReadLine(), out int act))
+                {
+                    continue;
+                }
+                if (act == 0) return;
+            }
+        }
+
         void TakeRest()
         {
             int restGold = 500;
@@ -361,8 +464,9 @@ namespace SpartanTextRPG
         void SaveData()
         {
             string jsonString = JsonSerializer.Serialize(PlayerManager.Instance.MainPlayer, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(TextMessages.playerDataFath, jsonString);
 
-            File.WriteAllText("playerData.json", jsonString);
+            ItemManager.Instance.SaveData();
         }
 
     }

@@ -79,5 +79,10 @@ namespace SpartanTextRPG
         {
             return itemDict.TryGetValue(id, out var item) ? item : null;
         }
+        public void SaveData()
+        {
+            string jsonString = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(TextMessages.itemListFileFath, jsonString);
+        }
     }
 }

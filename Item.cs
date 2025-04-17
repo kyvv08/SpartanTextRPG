@@ -71,7 +71,7 @@ namespace SpartanTextRPG
             }
             Console.WriteLine(itemInfo);
         }
-        string PadingKorean(string input,int width)
+        public static string PadingKorean(string input,int width)
         {
             int len = 0;
             foreach(char c in input){
