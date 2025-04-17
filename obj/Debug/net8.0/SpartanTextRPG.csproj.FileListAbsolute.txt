@@ -1,0 +1,14 @@
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.AssemblyInfoInputs.cache
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.AssemblyInfo.cs
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.csproj.CoreCompileInputs.cache
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\bin\Debug\net8.0\SpartanTextRPG.exe
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\bin\Debug\net8.0\SpartanTextRPG.deps.json
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\bin\Debug\net8.0\SpartanTextRPG.runtimeconfig.json
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\bin\Debug\net8.0\SpartanTextRPG.dll
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\bin\Debug\net8.0\SpartanTextRPG.pdb
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.dll
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\refint\SpartanTextRPG.dll
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.pdb
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.genruntimeconfig.cache
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\ref\SpartanTextRPG.dll
