@@ -11,7 +11,6 @@ namespace SpartanTextRPG
     {
         private static GameManager _instance;
 
-        // 2. 외부에서 접근할 수 있도록 프로퍼티
         public static GameManager Instance
         {
             get
@@ -22,12 +21,10 @@ namespace SpartanTextRPG
             }
         }
 
-        // 3. 생성자는 private (외부에서 new 못하게)
         private GameManager()
         {
         }
 
-        // 예시 메서드
         public void WrongInput()
         {
             Console.WriteLine("잘못된 입력입니다.(아무키나 눌러 다시 입력)\n");
