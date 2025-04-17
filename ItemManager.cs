@@ -13,16 +13,20 @@ namespace SpartanTextRPG
         public static ItemManager Instance => _instance ??= new ItemManager();
         private ItemManager() { }
 
-        private Dictionary<int, Item> _itemDict = new();
+        private Dictionary<int, Item> itemDict = new();
 
-        public void LoadItems(string filePath)
+        public void LoadItems()
         {
-            string json = File.ReadAllText(filePath);
+            string json = File.ReadAllText(TextMessages.itemListFileFath);
             var items = JsonSerializer.Deserialize<List<Item>>(json);
             foreach (var item in items)
             {
-                _itemDict[item.id] = item;
+                itemDict[item.id] = item;
             }
+        }
+        public Item? GetItembyId(int id)
+        {
+            return itemDict.TryGetValue(id, out var item) ? item : null;
         }
     }
 }

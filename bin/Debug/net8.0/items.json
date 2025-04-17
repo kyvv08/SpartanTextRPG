@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "type": 2,
+    "name": "\uC218\uB828\uC790 \uAC11\uC637",
+    "description": "\uC218\uB828\uC5D0 \uB3C4\uC6C0\uC744 \uC8FC\uB294 \uAC11\uC637\uC785\uB2C8\uB2E4.",
+    "itemStatus": {
+      "atk": 0,
+      "def": 5,
+      "health": 0
+    },
+    "price": 1000,
+    "isSold": false
+  },
+  {
+    "id": 2,
+    "type": 2,
+    "name": "\uBB34\uC1E0 \uAC11\uC637",
+    "description": "무쇠로 만들어져 튼튼한 갑옷입니다.",
+    "itemStatus": {
+      "atk": 0,
+      "def": 9,
+      "health": 0
+    },
+    "price": 1800,
+    "isSold": false
+  },
+  {
+    "id": 3,
+    "type": 2,
+    "name": "스파르타의 갑옷",
+    "description": "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.",
+    "itemStatus": {
+      "atk": 0,
+      "def": 15,
+      "health": 0
+    },
+    "price": 3500,  
+    "isSold": false
+  },
+  {
+    "id": 4,
+    "type": 1,
+    "name": "낡은 검",
+    "description": "쉽게 볼 수 있는 낡은 검 입니다.",
+    "itemStatus": {
+      "atk": 2,
+      "def": 0,
+      "health": 0
+    },
+    "price": 600,  
+    "isSold": false
+  },
+  {
+    "id": 5,
+    "type": 1,
+    "name": "청동 도끼",
+    "description": "어디선가 사용됐던거 같은 도끼입니다.",
+    "itemStatus": {
+      "atk": 5,
+      "def": 0,
+      "health": 0
+    },
+    "price": 1500,  
+    "isSold": false
+  },
+  {
+    "id": 6,
+    "type": 1,
+    "name": "스파르타의 창",
+    "description": "스파르타의 전사들이 사용했다는 전설의 창입니다.",
+    "itemStatus": {
+      "atk": 7,
+      "def": 0,
+      "health": 0
+    },
+    "price": 2700,  
+    "isSold": false
+  },
+  {
+    "id": 7,
+    "type": 1,
+    "name": "징키스칸의 활",
+    "description": "징키스칸이 사용했다고 전해지는 활입니다.",
+    "itemStatus": {
+      "atk": 10,
+      "def": 0,
+      "health": 0
+    },
+    "price": 5000,  
+    "isSold": false
+  },
+  {
+    "id": 8,
+    "type": 2,
+    "name": "아킬레우스의 흉갑",
+    "description": "아킬레우스가 트로이 전쟁에서 착용했다고 전해지는 흉갑입니다.",
+    "itemStatus": {
+      "atk": 0,
+      "def": 0,
+      "health": 80
+    },
+    "price": 4000,  
+    "isSold": false
+  }
+]

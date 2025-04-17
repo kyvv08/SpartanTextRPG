@@ -92,7 +92,7 @@ namespace SpartanTextRPG
                             WrongInput();
                             continue;
                     }
-                    PlayerManager.Instance.SetMainPlayer(new Player(name,className));
+                    PlayerManager.Instance.SetMainPlayer(new Player(name, className));
                     return;
                 }
             }
@@ -100,7 +100,7 @@ namespace SpartanTextRPG
 
         public void EnterVillage()
         {
-            while(true)
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine(TextMessages.enterVillageMent);
@@ -113,6 +113,7 @@ namespace SpartanTextRPG
                         ViewPlayerStatus();
                         break;
                     case 2:
+                        ViewInventory();
                         break;
                     case 3:
                         break;
@@ -130,22 +131,75 @@ namespace SpartanTextRPG
         }
         void ViewPlayerStatus()
         {
-            Console.Clear ();
+            Console.Clear();
             Player p = PlayerManager.Instance.MainPlayer;
-            Console.WriteLine($"[{TextMessages.viewStatusMent}]\n\n{TextMessages.viewLevel} {p.level}\n{p.name} ( {p.Class} )\n" +
-                $"{TextMessages.viewAttack} : {p.attackStat}\n" +
-                $"{TextMessages.viewDefence} : {p.defenceStat}\n" +
-                $"{TextMessages.viewHealth} : {p.hp}\n" +
-                $"{TextMessages.viewGold} : {p.gold} G\n");
+            p.ViewInfo();
             Console.WriteLine($"0. {TextMessages.viewExitMent}");
             Console.WriteLine(TextMessages.selectActionMent);
             int startLine = Console.CursorTop;
-            while (true) {
+            while (true)
+            {
                 Console.SetCursorPosition(0, startLine + 1);
                 Console.Write(new string(' ', Console.WindowWidth));
                 Console.SetCursorPosition(0, startLine + 1);
-                int act = int.Parse(Console.ReadLine());
+                if (!int.TryParse(Console.ReadLine(), out int act))
+                {
+                    continue;
+                }
                 if (act != 0) { continue; }
+                return;
+            }
+        }
+        void ViewInventoty()
+        {
+            Player p = PlayerManager.Instance.MainPlayer;
+            Console.Clear();
+            Console.WriteLine($"\n\n{TextMessages.viewItemListMent}");
+            p.ViewInventory();
+            Console.WriteLine($"1. {TextMessages.viewEquipManageMent}");
+            Console.WriteLine($"0. {TextMessages.viewExitMent}");
+            Console.WriteLine(TextMessages.selectActionMent);
+            int startLine = Console.CursorTop;
+            while (true)
+            {
+                Console.SetCursorPosition(0, startLine + 1);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, startLine + 1);
+                if (!int.TryParse(Console.ReadLine(), out int act))
+                {
+                    continue;
+                }
+                if (act == 1)
+                {
+                    ManageItems();
+                }
+                if (act != 0) { continue; }
+                return;
+            }
+        }
+
+        void ManageItems()
+        {
+            Player p = PlayerManager.Instance.MainPlayer;
+            Console.Clear();
+            Console.WriteLine($"\n\n{TextMessages.viewItemListMent}");
+            p.ViewInventory(true);
+            Console.WriteLine($"0. {TextMessages.viewExitMent}");
+            Console.WriteLine(TextMessages.selectActionMent);
+            int startLine = Console.CursorTop;
+            while (true)
+            {
+                Console.SetCursorPosition(0, startLine + 1);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, startLine + 1);
+                if (!int.TryParse(Console.ReadLine(), out int act))
+                {
+                    continue;
+                }
+                if (act != 0) {
+                    p.ManageEquipment(act);
+                    continue;
+                }
                 return;
             }
         }

@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json;
+
 namespace SpartanTextRPG
 {
     internal interface IDescribable

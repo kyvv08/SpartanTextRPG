@@ -18,5 +18,9 @@ namespace SpartanTextRPG
         {
             MainPlayer = player;
         }
+        public Player GetPlayer()
+        {
+            return MainPlayer;
+        }
     }
 }

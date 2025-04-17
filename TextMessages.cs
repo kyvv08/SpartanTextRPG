@@ -52,5 +52,7 @@ namespace SpartanTextRPG
         public const string viewHealth = "체 력";
 
         public const string viewGold = "Gold";
+
+        public const string itemListFileFath = "items.json";
     }
 }
