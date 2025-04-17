@@ -34,6 +34,7 @@ namespace SpartanTextRPG
         }
         public void StartGame()
         {
+
             string name, className;
             if (File.Exists("playerData"))
             {

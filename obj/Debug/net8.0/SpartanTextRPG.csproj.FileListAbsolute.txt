@@ -12,3 +12,4 @@ C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\refin
 C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.pdb
 C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.genruntimeconfig.cache
 C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\ref\SpartanTextRPG.dll
+C:\Users\ky499\source\repos\SpartanTextRPG\SpartanTextRPG\obj\Debug\net8.0\SpartanTextRPG.sourcelink.json

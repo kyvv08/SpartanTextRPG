@@ -21,7 +21,7 @@ namespace SpartanTextRPG
             var items = JsonSerializer.Deserialize<List<Item>>(json);
             foreach (var item in items)
             {
-                _itemDict[item.Id] = item;
+                _itemDict[item.id] = item;
             }
         }
     }
