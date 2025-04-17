@@ -130,8 +130,10 @@ namespace SpartanTextRPG
                         EnterShop();
                         break;
                     case 4:
+                        EnterDungeon();
                         break;
                     case 5:
+                        TakeRest();
                         break;
                     case 6:
                         SaveData();
@@ -302,6 +304,52 @@ namespace SpartanTextRPG
                 }
             }
         }
+        
+        void EnterDungeon()
+        {
+
+        }
+        void TakeRest()
+        {
+            int restGold = 500;
+            Player p = PlayerManager.Instance.MainPlayer;
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(TextMessages.viewRestMent);
+                Console.WriteLine("500 G 를 내면 체력을 회복할 수 있습니다. (보유 골드 : {0} G)\n", p.gold);
+                Console.WriteLine($"1. {TextMessages.viewRestMent}\n0. {TextMessages.viewExitMent}\n\n{TextMessages.selectActionMent}");
+                int startLine = Console.CursorTop;
+                while (true)
+                {
+                    Console.SetCursorPosition(0, startLine);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, startLine);
+                    if (!int.TryParse(Console.ReadLine(), out int act))
+                    {
+                        continue;
+                    }
+                    if (act == 1)
+                    {
+                        if (p.gold < restGold)
+                        {
+                            Console.WriteLine("Gold가 부족합니다.(계속하려면 아무 키 입력)\n");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            p.UseGold(restGold);
+                            p.Heal();
+                            Console.WriteLine("휴식을 완료했습니다.(계속하려면 아무 키 입력)\n");
+                            Console.ReadKey();
+                        }   
+                        break;
+                    }
+                    if (act != 0) { WrongInput(); continue; }
+                    return;
+                }
+            }
+        }
 
         void SaveData()
         {
@@ -309,5 +357,6 @@ namespace SpartanTextRPG
 
             File.WriteAllText("playerData.json", jsonString);
         }
+
     }
 }

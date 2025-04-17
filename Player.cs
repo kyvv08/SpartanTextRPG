@@ -193,5 +193,11 @@ namespace SpartanTextRPG
             itemId.Add(id);
             gold -= price;
         }
+        public void UseGold(int price)
+        {
+            gold -= price;
+        }
+        public void EarnGold(int price) { gold += price; }
+        public void Heal() { currentHp = maxHp + additionalMaxHp; }//Math.Min(currentHp + hp, maxHp + additionalMaxHp); }
     }
 }

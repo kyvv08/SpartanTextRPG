@@ -6,10 +6,10 @@
   "additionalAttackStat": 0,
   "defenceStat": 5,
   "additionalDefenceStat": 5,
-  "currentHp": 100,
+  "currentHp": 30,
   "maxHp": 100,
   "additionalMaxHp": 0,
-  "gold": 500,
+  "gold": 25000,
   "itemId": [
     2
   ],
