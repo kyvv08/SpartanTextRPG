@@ -304,10 +304,17 @@ namespace SpartanTextRPG
                 }
             }
         }
-        
+
         void EnterDungeon()
         {
-
+            PlayerManager.Instance.MainPlayer.GainExp(1);
+            return;
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(TextMessages.viewDungeonMent);
+                
+            }
         }
         void TakeRest()
         {

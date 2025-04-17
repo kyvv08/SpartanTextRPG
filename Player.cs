@@ -19,9 +19,9 @@ namespace SpartanTextRPG
         [JsonInclude]
         public int level { get; private set; } = 1;
         [JsonInclude]
-        public int attackStat { get; private set; } = 10;
+        public float attackStat { get; private set; } = 10;
         [JsonInclude]
-        public int additionalAttackStat { get; private set; } = 0;
+        public float additionalAttackStat { get; private set; } = 0;
         [JsonInclude]
         public int defenceStat { get; private set; } = 5;
         [JsonInclude]
@@ -32,6 +32,10 @@ namespace SpartanTextRPG
         public int maxHp { get; private set; } = 100;
         [JsonInclude]
         public int additionalMaxHp { get; private set; } = 0;
+        [JsonInclude]
+        public int curEXP { get; private set; } = 0;
+        [JsonInclude]
+        public int maxEXP { get; private set; } = 1;
         [JsonInclude]
         public int gold { get; private set; } = 1500;
         [JsonInclude]
@@ -69,6 +73,7 @@ namespace SpartanTextRPG
                 atk + "\n" +
                 def + "\n" +
                 hp + "\n" +
+                TextMessages.viewExp + " : " + curEXP + "/"+maxEXP + "\n" +
                 TextMessages.viewGold + " : " + gold + " G\n");
         }
 
@@ -199,5 +204,17 @@ namespace SpartanTextRPG
         }
         public void EarnGold(int price) { gold += price; }
         public void Heal() { currentHp = maxHp + additionalMaxHp; }//Math.Min(currentHp + hp, maxHp + additionalMaxHp); }
+        public void GainExp(int exp)
+        {
+            curEXP += exp;
+            if(curEXP >= maxEXP)
+            {
+                ++level;
+                maxEXP = level;
+                curEXP = 0;
+                attackStat += 0.5f;
+                defenceStat += 1;
+            }
+        }
     }
 }

@@ -50,6 +50,7 @@ namespace SpartanTextRPG
         public const string viewAttack = "공격력";
         public const string viewDefence = "방어력";
         public const string viewHealth = "체 력";
+        public const string viewExp = "경험치";
 
         public const string viewGold = "Gold";
 
