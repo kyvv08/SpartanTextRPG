@@ -77,7 +77,7 @@ namespace SpartanTextRPG
                 TextMessages.viewGold + " : " + gold + " G\n");
         }
 
-        public void ViewInventory(bool isManage)
+        public void ViewInventory(bool isManage,bool isShop = false)
         {
             if (!isManage)
             {
@@ -96,7 +96,7 @@ namespace SpartanTextRPG
                         {
                             Console.Write("[E]");
                         }
-                        item.ViewInfo(false);
+                        item.ViewInfo(ViewMode.Inventory);
                     }
                 }
             }
@@ -118,7 +118,14 @@ namespace SpartanTextRPG
                         {
                             Console.Write("[E]");
                         }
-                        item.ViewInfo(false);
+                        if (isShop)
+                        {
+                            item.ViewInfo(ViewMode.Shop_Sell);
+                        }
+                        else
+                        {
+                            item.ViewInfo(ViewMode.Inventory);
+                        }
                     }
                 }
             }
@@ -192,6 +199,31 @@ namespace SpartanTextRPG
             //additionalAttackStat = Math.Max(additionalAttackStat - item.itemStatus.atk,0);
             //additionalDefenceStat = Math.Max(additionalDefenceStat - item.itemStatus.def, 0);
             //additionalMaxHp = Math.Max(additionalMaxHp - item.itemStatus.health, 0);
+        }
+        public void SellItem(int index)
+        {
+            if (index > itemId.Count())
+            {
+                GameManager.Instance.WrongInput();
+                return;
+            }
+            --index;
+            int equipItemIndex = equipedItem.IndexOf(itemId[index]);
+            if (equipItemIndex != -1)
+            {
+                RemoveItemStat(equipedItem[equipItemIndex]);
+                equipedItem.RemoveAt(equipItemIndex);
+            }
+            Item item = ItemManager.Instance.GetItembyId(itemId[index]);
+            if (item == null)
+            {
+                Console.WriteLine("Fatal Error!!!! Item is Null");
+                Console.ReadKey();
+                return;
+            }
+            gold += (item.price * 85) / 100;
+            item.ItemSold();
+            itemId.RemoveAt(index);
         }
         public void AddItemToInvenTory(int id,int price)
         {

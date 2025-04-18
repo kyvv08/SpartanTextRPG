@@ -13,6 +13,12 @@ namespace SpartanTextRPG
         public int def { get; init; }
         public int health { get; init; }
     }
+    public enum ViewMode
+    {
+        Shop_Buy,
+        Shop_Sell,
+        Inventory
+    }
     internal class Item
     {
         [JsonInclude]
@@ -40,7 +46,7 @@ namespace SpartanTextRPG
             this.price = price;
             this.isSold = false;
         }
-        public void ViewInfo(bool isShop)
+        public void ViewInfo(ViewMode mode)
         {
             string stat = string.Empty;
             string sellPrice = string.Empty;
@@ -56,16 +62,18 @@ namespace SpartanTextRPG
             {
                 stat += $"{TextMessages.viewHealth} +{itemStatus.health,-2} ";
             }
-            if (isSold)
+            switch (mode)
             {
-                sellPrice = $"{TextMessages.viewSoldItemMent}";
+                case ViewMode.Shop_Buy:
+                    sellPrice = isSold ? $"{TextMessages.viewSoldItemMent}" : $"{price} G";
+                    break;
+                case ViewMode.Shop_Sell:
+                    sellPrice = !isSold ? $"{TextMessages.viewSoldItemMent}" : $"{price} G";
+                    break;
             }
-            else
-            {
-                sellPrice = $"{price} G";
-            }
+
             string itemInfo = $"{PadingKorean(name, 18)} | {stat,-10} | {PadingKorean(description, 50)}";
-            if (isShop)
+            if (mode != ViewMode.Inventory)
             {
                 itemInfo += $" | { sellPrice,-5}";
             }
@@ -85,7 +93,10 @@ namespace SpartanTextRPG
         public void ItemSold()
         {
             isSold = !isSold;
-            PlayerManager.Instance.MainPlayer.AddItemToInvenTory(id,price);
+            if (isSold)
+            {
+                PlayerManager.Instance.MainPlayer.AddItemToInvenTory(id, price);
+            }
         }
     }
 }

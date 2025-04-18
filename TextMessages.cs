@@ -41,6 +41,8 @@ namespace SpartanTextRPG
         public const string viewSellItemMent = "아이템 판매";
         public const string viewSoldItemMent = "구매 완료";
 
+        public const string enterShopMent = "필요한 아이템을 얻을 수 있는 상점입니다.";
+
         public const string viewEasyDungeonMent = "쉬운 던전";
         public const string viewNormalDungeonMent = "일반 던전";
         public const string viewHardDungeonMent = "어려운 던전";

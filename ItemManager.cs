@@ -32,7 +32,7 @@ namespace SpartanTextRPG
                 foreach (var item in items)
                 {
                     Console.Write("-");
-                    item.ViewInfo(true);
+                    item.ViewInfo(ViewMode.Shop_Buy);
                 }
             }
             else
@@ -41,7 +41,7 @@ namespace SpartanTextRPG
                 foreach (var item in items)
                 {
                     Console.Write("- {0} ",i++);
-                    item.ViewInfo(true);
+                    item.ViewInfo(ViewMode.Shop_Buy);
                 }
             }
             Console.WriteLine();

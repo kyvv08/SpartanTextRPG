@@ -238,13 +238,14 @@ namespace SpartanTextRPG
         {
             Console.Clear();
 
-            Console.WriteLine($"{TextMessages.viewShopMent}");
+            Console.WriteLine($"{TextMessages.viewShopMent}\n{TextMessages.enterShopMent}");
             Console.WriteLine($"\n{TextMessages.viewCurrentCashMent}\n" + PlayerManager.Instance.MainPlayer.gold + " G\n");
             ItemManager.Instance.ShowItems(isBuyMode);
 
             if (!isBuyMode)
             {
                 Console.WriteLine($"1. {TextMessages.viewBuyItemMent}");
+                Console.WriteLine($"2. {TextMessages.viewSellItemMent}");
             }
             Console.WriteLine($"0. {TextMessages.viewExitMent}\n");
             Console.WriteLine(TextMessages.selectActionMent);
@@ -271,6 +272,10 @@ namespace SpartanTextRPG
                         BuyItems();
                         break;
                     }
+                    if(act == 2)
+                    {
+                        SellItems(); break;
+                    }
                     if (act != 0) { WrongInput(); continue; }
                     return;
                 }
@@ -295,6 +300,37 @@ namespace SpartanTextRPG
                     if (act != 0)
                     {
                         ItemManager.Instance.BuyItem(act);
+                        break;
+                    }
+                    return;
+                }
+            }
+        }
+
+        void SellItems()
+        {
+            Player p = PlayerManager.Instance.MainPlayer;
+            while (true) {
+                Console.Clear();
+                Console.WriteLine($"{TextMessages.viewShopMent} - {TextMessages.viewSellItemMent}\n{TextMessages.enterShopMent}");
+                Console.WriteLine($"\n{TextMessages.viewCurrentCashMent}\n" + p.gold + " G\n");
+                p.ViewInventory(true,true);
+                Console.WriteLine($"0. {TextMessages.viewExitMent}\n");
+                Console.WriteLine(TextMessages.selectActionMent);
+                int startLine = Console.CursorTop;
+                while (true)
+                {
+                    Console.SetCursorPosition(0, startLine);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, startLine);
+                    if (!int.TryParse(Console.ReadLine(), out int act))
+                    {
+                        WrongInput();
+                        continue;
+                    }
+                    if (act != 0)
+                    {
+                        p.SellItem(act);
                         break;
                     }
                     return;
